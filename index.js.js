@@ -32,9 +32,10 @@ bot.onText(/\/trackflight (.+)/, async (msg, match) => {
     const departureTime = moment(flight.departure.estimated).format('MMMM Do YYYY, h:mm:ss a');
     const arrivalTime = moment(flight.arrival.estimated).format('MMMM Do YYYY, h:mm:ss a');
     
-    const isLanded = flight.live ? flight.live.is_ground : false;
-    const landingStatus = isLanded ? '✈️ *The flight has landed.*' : '🛫 *The flight is still in the air.*';
+    const isLanded = flight.flight_status === 'landed';
 
+    const landingStatus = isLanded ? '✈️ The flight has landed.' : '🛫 The flight is still in the air.';
+    
     const message = `
     Flight Information for ${flight.airline.name} ${flight.flight.iata}:
     🛫 *Departure Airport:* ${flight.departure.airport}
